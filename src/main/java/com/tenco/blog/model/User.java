@@ -11,7 +11,10 @@ import javax.persistence.Id;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.Data;
+
 @Entity
+@Data  // !! (object Mapper 가) 파싱처리 할때 setter 반드시 있어야 한다.
 public class User {
 
 	@Id
