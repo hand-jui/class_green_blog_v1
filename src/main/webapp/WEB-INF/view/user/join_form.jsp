@@ -18,8 +18,9 @@
 				<label for="email">email : </label>
 				<input type="text" id="email" name="email" class="form-control" value="mimi@jjang.com">
 			</div>
-			<button type="submit" class="btn btn-primary">회원가입</button>
+			<button type="button" id="btn-save" class="btn btn-primary">회원가입</button>
 		</form>
 	</div>
+<script src="/js/user.js"></script>
 
 <%@ include file="../layout/footer.jsp"%>
