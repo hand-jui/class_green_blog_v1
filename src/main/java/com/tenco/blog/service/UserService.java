@@ -1,6 +1,7 @@
 package com.tenco.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +14,17 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+
 	@Transactional
 	public int createUser(User user) {
 
 		try {
+			String rawPassword = user.getPassword();
+			String encPassword = encoder.encode(rawPassword);
 			user.setRole("user");
+			user.setPassword(encPassword);
 			userRepository.save(user);
 			return 1;
 		} catch (Exception e) {
