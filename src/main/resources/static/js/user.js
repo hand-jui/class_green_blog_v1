@@ -2,9 +2,13 @@
 let index = {
 
 	init: function() {
-		$("#btn-save").bind("click", () => {
+		$("#btn--save").on("click", () => {
 			this.save();
 		});
+
+		$("#btn--login").on("click", () => {
+			this.login();
+		})
 	},
 	save: function() {
 		// 회원가입
@@ -27,7 +31,31 @@ let index = {
 				alert("회원가입 성공");
 				location.href = "/loginPage";
 			}
-		}).fail();
+		}).fail(function(error) {
+			console.log(error);
+		});
+	},
+	login: function() {
+		let data = {
+			username: $("#username").val(),
+			password: $("#password").val()
+		}
+
+		$.ajax({
+			type: "POST",
+			url: "/api/user/login",
+			contentType: "application/json; charset=utf-8;",
+			data: JSON.stringify(data),
+			dataType: "json"
+		}).done(function(res) {
+			// if(res...){}
+			console.log(res);
+			alert("로그인 성공");
+			location.href = "/";
+		}).fail(function(error) {
+			alert(JSON.stringify(error));
+			alert("로그인 실패");
+		});
 	}
 };
 

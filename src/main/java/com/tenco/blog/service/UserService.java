@@ -26,4 +26,12 @@ public class UserService {
 		return -1;
 	}
 
+	@Transactional
+	public User readUser(User user) {
+//		필요한 기능을 JPA가 제공하지 않음 -> 직접 만들기
+		User userEntity = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+
+		return userEntity;
+	}
+
 }

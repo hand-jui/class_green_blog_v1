@@ -1,5 +1,7 @@
 package com.tenco.blog.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,9 @@ import com.tenco.blog.service.UserService;
 public class UserApiController {
 
 	@Autowired
+	private HttpSession session;
+
+	@Autowired
 	private UserService userService;
 
 	@PostMapping("/api/user")
@@ -25,4 +30,17 @@ public class UserApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK, 1);
 	}
 
+	@PostMapping("/api/user/login")
+	public ResponseDto<?> loginUser(@RequestBody User user) {
+
+//		유효성 검사
+
+//		서비스호출해서 결과값 받기
+		User principal = userService.readUser(user);
+		if (principal != null) {
+			session.setAttribute("principal", principal);
+		}
+
+		return new ResponseDto<Integer>(HttpStatus.OK, 1);
+	}
 }
